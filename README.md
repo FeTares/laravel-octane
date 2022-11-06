@@ -1,66 +1,93 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Test Laravel 9 Octane with Swoole and RoadRunner - PHP 8.1
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Without Octane
+```
+fetares@fetares-note:~/dev/laravel-octane$ wrk -t12 -c400 -d5s http://localhost
+Running 5s test @ http://localhost
+  12 threads and 400 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.04s   557.67ms   2.00s    59.91%
+    Req/Sec    27.77     23.85   120.00     73.68%
+  553 requests in 5.10s, 9.89MB read
+  Socket errors: connect 0, read 553, write 0, timeout 331
+Requests/sec:    108.43
+Transfer/sec:      1.94MB
 
-## About Laravel
+fetares@fetares-note:~/dev/laravel-octane$ wrk -t12 -c500 -d5s http://localhost
+Running 5s test @ http://localhost
+  12 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.00s   563.77ms   1.99s    58.55%
+    Req/Sec    39.24     33.60   111.00     65.05%
+  500 requests in 5.10s, 8.94MB read
+  Socket errors: connect 0, read 500, write 0, timeout 307
+Requests/sec:     98.04
+Transfer/sec:      1.75MB
+```
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### With Octane Swoole
+```
+fetares@fetares-note:~/dev/laravel-octane$ wrk -t12 -c400 -d5s http://localhost
+Running 5s test @ http://localhost
+  12 threads and 400 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   850.79ms  287.30ms   1.52s    72.36%
+    Req/Sec    54.14     52.60   282.00     81.88%
+  2008 requests in 5.07s, 35.86MB read
+Requests/sec:    395.93
+Transfer/sec:      7.07MB
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+fetares@fetares-note:~/dev/laravel-octane$ wrk -t12 -c400 -d5s http://localhost
+Running 5s test @ http://localhost
+  12 threads and 400 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   829.70ms  279.65ms   1.40s    69.37%
+    Req/Sec    46.52     38.68   280.00     78.72%
+  2096 requests in 5.10s, 37.43MB read
+Requests/sec:    410.97
+Transfer/sec:      7.34MB
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+fetares@fetares-note:~/dev/laravel-octane$ wrk -t12 -c500 -d5s http://localhost
+Running 5s test @ http://localhost
+  12 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.14s   374.66ms   1.87s    74.21%
+    Req/Sec    45.61     42.20   232.00     80.17%
+  1857 requests in 5.10s, 33.16MB read
+Requests/sec:    364.31
+Transfer/sec:      6.51MB
+```
 
-## Learning Laravel
+### With Octane RoadRunner
+```
+fetares@fetares-note:~/dev/laravel-octane$ wrk -t12 -c400 -d5s http://localhost
+Running 5s test @ http://localhost
+  12 threads and 400 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.18s   244.46ms   1.69s    79.48%
+    Req/Sec    45.08     43.34   280.00     79.01%
+  1418 requests in 5.09s, 25.29MB read
+Requests/sec:    278.48
+Transfer/sec:      4.97MB
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+fetares@fetares-note:~/dev/laravel-octane$ wrk -t12 -c400 -d5s http://localhost
+Running 5s test @ http://localhost
+  12 threads and 400 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.22s   429.39ms   1.88s    76.96%
+    Req/Sec    57.68     63.29   270.00     80.12%
+  1363 requests in 5.09s, 24.31MB read
+Requests/sec:    267.69
+Transfer/sec:      4.78MB
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+fetares@fetares-note:~/dev/laravel-octane$ wrk -t12 -c500 -d5s http://localhost
+Running 5s test @ http://localhost
+  12 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.52s   472.63ms   1.99s    83.67%
+    Req/Sec    50.56     51.88   300.00     87.98%
+  1342 requests in 5.08s, 23.94MB read
+  Socket errors: connect 0, read 0, write 0, timeout 13
+Requests/sec:    264.31
+Transfer/sec:      4.71MB
+```
