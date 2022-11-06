@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    /** clear from memory */
+    Example::$values = [];
     Example::$values[] = rand(4, 2);
 
     dd(Example::$values);
